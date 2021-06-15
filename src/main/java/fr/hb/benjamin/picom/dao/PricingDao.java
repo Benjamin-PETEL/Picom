@@ -2,7 +2,9 @@ package fr.hb.benjamin.picom.dao;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 
+import fr.hb.benjamin.picom.business.Area;
 import fr.hb.benjamin.picom.business.Pricing;
+import fr.hb.benjamin.picom.business.TimeSlot;
 
 public interface PricingDao extends JpaRepository<Pricing, Long> {
 
@@ -12,6 +14,6 @@ public interface PricingDao extends JpaRepository<Pricing, Long> {
 	 * @param idTimeSlot: the id of the timeSlot
 	 * @return the Pricing if both idArea and idTimeSlot are present in the DB, null otherwise
 	 */
-	Pricing findByIdAreaAndIdTimeSlot(Long idArea, Long idTimeSlot);
+	Pricing findByAreaAndTimeSlot(Area area, TimeSlot timeSlot);
 	
 }

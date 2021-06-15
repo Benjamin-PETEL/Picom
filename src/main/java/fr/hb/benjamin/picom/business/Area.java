@@ -36,6 +36,7 @@ public class Area implements Serializable {
 	@JsonIgnore
 	private List<Stop> stops;
 	
+	@JsonIgnore
 	@OneToMany(mappedBy = "area")
 	private List<Pricing> pricing;
 

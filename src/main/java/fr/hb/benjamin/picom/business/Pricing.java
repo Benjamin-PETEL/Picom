@@ -20,12 +20,12 @@ public class Pricing implements Serializable {
 	
 	@Id
 	@ManyToOne
-	@JoinColumn(name="idZone")
+	@JoinColumn(name="idArea")
 	private Area area;
 
 	@Id
 	@ManyToOne
-	@JoinColumn(name="idPlageHoraire")
+	@JoinColumn(name="idTimeSlot")
 	private TimeSlot timeSlot;
 
 	@Min(value=0, message="please provide a positive value")

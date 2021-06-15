@@ -1,6 +1,7 @@
 package fr.hb.benjamin.picom.business;
 
 import java.io.Serializable;
+import java.time.LocalTime;
 import java.util.List;
 
 import javax.persistence.Entity;
@@ -9,6 +10,8 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
 @NamedQuery(name="TimeSlot.findAll", query="SELECT t FROM TimeSlot t")
@@ -21,11 +24,12 @@ public class TimeSlot implements Serializable {
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private Long idTimeSlot;
 
-	private int beginingTime;
+	private LocalTime beginingTime;
 
 	private boolean isActive;
 
 	@OneToMany(mappedBy = "timeSlot")
+	@JsonIgnore
 	private List<Pricing> pricing;
 	
 	
@@ -45,11 +49,11 @@ public class TimeSlot implements Serializable {
 		this.idTimeSlot = idTimeSlot;
 	}
 
-	public int getBeginingTime() {
+	public LocalTime getBeginingTime() {
 		return beginingTime;
 	}
 
-	public void setBeginingTime(int beginingTime) {
+	public void setBeginingTime(LocalTime beginingTime) {
 		this.beginingTime = beginingTime;
 	}
 
@@ -69,13 +73,14 @@ public class TimeSlot implements Serializable {
 		this.pricing = pricing;
 	}
 
-
+	
+	
 	// ----------------------------- hashCode -----------------------------------
 	@Override
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
-		result = prime * result + beginingTime;
+		result = prime * result + ((beginingTime == null) ? 0 : beginingTime.hashCode());
 		result = prime * result + ((idTimeSlot == null) ? 0 : idTimeSlot.hashCode());
 		result = prime * result + (isActive ? 1231 : 1237);
 		result = prime * result + ((pricing == null) ? 0 : pricing.hashCode());
@@ -94,7 +99,10 @@ public class TimeSlot implements Serializable {
 		if (getClass() != obj.getClass())
 			return false;
 		TimeSlot other = (TimeSlot) obj;
-		if (beginingTime != other.beginingTime)
+		if (beginingTime == null) {
+			if (other.beginingTime != null)
+				return false;
+		} else if (!beginingTime.equals(other.beginingTime))
 			return false;
 		if (idTimeSlot == null) {
 			if (other.idTimeSlot != null)

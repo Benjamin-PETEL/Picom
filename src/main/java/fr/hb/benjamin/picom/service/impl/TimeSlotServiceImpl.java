@@ -1,5 +1,6 @@
 package fr.hb.benjamin.picom.service.impl;
 
+import java.time.LocalTime;
 import java.util.List;
 
 import org.springframework.stereotype.Service;
@@ -40,6 +41,23 @@ public class TimeSlotServiceImpl implements TimeSlotService {
 			timeSlot.setActive(isActive);
 			return timeSlotDao.save(timeSlot);
 		}
+	}
+
+
+
+	@Override
+	public TimeSlot addTimeSlot(LocalTime localTime) {
+		TimeSlot timeSlot = new TimeSlot();
+		timeSlot.setActive(false);
+		timeSlot.setBeginingTime(localTime);
+		return timeSlotDao.save(timeSlot);
+	}
+
+
+
+	@Override
+	public TimeSlot getTimeSlotById(Long idTimeSlot) {
+		return timeSlotDao.findById(idTimeSlot).get();
 	}
 
 }
