@@ -12,7 +12,21 @@ public interface PricingService {
 	 */
 	List<Pricing> getAllPricing();
 	
+	/**
+	 * 
+	 * @param idArea: the id of the area
+	 * @param idTimeSlot: the id of the timeSlot
+	 * @return the Pricing if both idArea and idTimeSlot are present in the DB, null otherwise
+	 */
+	Pricing getPricingByIds(Long idArea, Long idTimeSlot);
 	
-	
+	/**
+	 * 
+	 * @param idArea: the id of the area
+	 * @param idTimeSlot: the id of the timeSlot
+	 * @param price: the new price (must be >0 )
+	 * @return the Pricing if both idArea and idTimeSlot are present in the DB, null otherwise
+	 */
+	Pricing savePricing(Long idArea, Long idTimeSlot, float price);
 	
 }
