@@ -35,6 +35,9 @@ public class Area implements Serializable {
 	@OneToMany(mappedBy="area")
 	@JsonIgnore
 	private List<Stop> stops;
+	
+	@OneToMany(mappedBy = "area")
+	private List<Pricing> pricing;
 
 	
 	
@@ -77,7 +80,15 @@ public class Area implements Serializable {
 		this.stops = stops;
 	}
 	
-	
+	public List<Pricing> getPricing() {
+		return pricing;
+	}
+
+	public void setPricing(List<Pricing> pricing) {
+		this.pricing = pricing;
+	}
+
+
 	
 	// ----------------------------- hashCode -----------------------------------
 	@Override
@@ -87,6 +98,8 @@ public class Area implements Serializable {
 		result = prime * result + ((contour == null) ? 0 : contour.hashCode());
 		result = prime * result + ((idArea == null) ? 0 : idArea.hashCode());
 		result = prime * result + ((name == null) ? 0 : name.hashCode());
+		result = prime * result + ((pricing == null) ? 0 : pricing.hashCode());
+		result = prime * result + ((stops == null) ? 0 : stops.hashCode());
 		return result;
 	}
 
@@ -117,16 +130,26 @@ public class Area implements Serializable {
 				return false;
 		} else if (!name.equals(other.name))
 			return false;
+		if (pricing == null) {
+			if (other.pricing != null)
+				return false;
+		} else if (!pricing.equals(other.pricing))
+			return false;
+		if (stops == null) {
+			if (other.stops != null)
+				return false;
+		} else if (!stops.equals(other.stops))
+			return false;
 		return true;
 	}
 
 
-
+	
 	// ----------------------------- toString -----------------------------------
 	@Override
 	public String toString() {
-		return "Area [idArea=" + idArea + ", contour=" + contour + ", name=" + name + "]";
+		return "Area [idArea=" + idArea + ", contour=" + contour + ", name=" + name + ", stops=" + stops + ", pricing="
+				+ pricing + "]";
 	}
-
 
 }

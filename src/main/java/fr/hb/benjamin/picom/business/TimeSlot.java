@@ -1,16 +1,14 @@
 package fr.hb.benjamin.picom.business;
 
 import java.io.Serializable;
+import java.util.List;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.NamedQuery;
-import javax.validation.constraints.NotNull;
-
-import lombok.Getter;
-import lombok.Setter;
+import javax.persistence.OneToMany;
 
 @Entity
 @NamedQuery(name="TimeSlot.findAll", query="SELECT t FROM TimeSlot t")
@@ -27,6 +25,9 @@ public class TimeSlot implements Serializable {
 
 	private boolean isActive;
 
+	@OneToMany(mappedBy = "timeSlot")
+	private List<Pricing> pricing;
+	
 	
 	
 	// ------------------------------- Builder ----------------------------------
@@ -59,7 +60,14 @@ public class TimeSlot implements Serializable {
 	public void setActive(boolean isActive) {
 		this.isActive = isActive;
 	}
+	
+	public List<Pricing> getPricing() {
+		return pricing;
+	}
 
+	public void setPricing(List<Pricing> pricing) {
+		this.pricing = pricing;
+	}
 
 
 	// ----------------------------- hashCode -----------------------------------
@@ -70,11 +78,12 @@ public class TimeSlot implements Serializable {
 		result = prime * result + beginingTime;
 		result = prime * result + ((idTimeSlot == null) ? 0 : idTimeSlot.hashCode());
 		result = prime * result + (isActive ? 1231 : 1237);
+		result = prime * result + ((pricing == null) ? 0 : pricing.hashCode());
 		return result;
 	}
 
 
-
+	
 	// ------------------------------ equals ------------------------------------
 	@Override
 	public boolean equals(Object obj) {
@@ -94,15 +103,21 @@ public class TimeSlot implements Serializable {
 			return false;
 		if (isActive != other.isActive)
 			return false;
+		if (pricing == null) {
+			if (other.pricing != null)
+				return false;
+		} else if (!pricing.equals(other.pricing))
+			return false;
 		return true;
 	}
 
 
-
+	
 	// ----------------------------- toString -----------------------------------
 	@Override
 	public String toString() {
-		return "TimeSlot [idTimeSlot=" + idTimeSlot + ", beginingTime=" + beginingTime + ", isActive=" + isActive + "]";
+		return "TimeSlot [idTimeSlot=" + idTimeSlot + ", beginingTime=" + beginingTime + ", isActive=" + isActive
+				+ ", pricing=" + pricing + "]";
 	}
 
 }

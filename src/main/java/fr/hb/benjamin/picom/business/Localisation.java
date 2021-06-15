@@ -3,9 +3,6 @@ package fr.hb.benjamin.picom.business;
 import java.io.Serializable;
 import javax.persistence.*;
 
-import lombok.Getter;
-import lombok.Setter;
-
 
 @Entity
 @NamedQuery(name="Localisation.findAll", query="SELECT l FROM Localisation l")
