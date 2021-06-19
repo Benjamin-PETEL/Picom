@@ -1,10 +1,7 @@
 package fr.hb.benjamin.picom.business;
 
-import org.hibernate.validator.constraints.URL;
-
 import javax.persistence.Entity;
 import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Pattern;
 
 @Entity
 public class AdvertPNG extends Advert{

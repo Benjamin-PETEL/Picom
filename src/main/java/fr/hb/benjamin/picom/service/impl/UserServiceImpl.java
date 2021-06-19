@@ -1,5 +1,7 @@
 package fr.hb.benjamin.picom.service.impl;
 
+import java.util.List;
+
 import javax.validation.Valid;
 
 import org.springframework.stereotype.Service;
@@ -30,10 +32,24 @@ public class UserServiceImpl implements UserService {
 		return userDao.findByEmailAndPassword(email, password);
 	}
 
-	
 	@Override
 	public @Valid User save(@Valid User user) {
 		return userDao.save(user);
+	}
+
+	@Override
+	public List<User> findAll() {
+		return userDao.findAll();
+	}
+
+	@Override
+	public User findById(Long idUser) {
+		if (idUser!=null) {
+			return userDao.findById(idUser).get();
+		}
+		else {
+			return null;
+		}
 	}
 	
 	
