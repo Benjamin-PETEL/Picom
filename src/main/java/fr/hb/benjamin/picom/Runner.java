@@ -43,28 +43,28 @@ public class Runner implements CommandLineRunner {
 	@Override
 	public void run(String... args) throws Exception {
 
-		// For the moment, we add one area to the database which will contains all stops.
-		Area defaultArea = areaService.addArea(new String("area1"));
-
 		if (stopService.getStops().isEmpty()) {
-
+			
+			// For the moment, we add one area to the database which will contains all stops.
+			Area defaultArea = areaService.addArea(new String("area1"));
+			
+			// A JSON can be parsed into a JsonNode object and used to retrieve data from a
+			// specific node.
 			JsonNode jsonNode = objectMapper.readTree(res.getFile());
 
-			// A Iterator to iterate through the elements of the property "features" in
-			// the Json file.
+			// A Iterator to iterate through the elements of the list "features" in
+			// the JSON file.
 			Iterator<JsonNode> features = jsonNode.get("features").elements();
 
 			while (features.hasNext()) {
 
-				// A JSON can be parsed into a JsonNode object and used to retrieve data from a
-				// specific node.
 				JsonNode lineOfFeatures = features.next();
+  
+				String name = lineOfFeatures.findValue("nom").asText();
+				String longitude = lineOfFeatures.findValue("coordinates").get(0).asText();
+				String latitude = lineOfFeatures.findValue("coordinates").get(1).asText();
 
-				String name = lineOfFeatures.findValue("nom").toString();
-				String longitude = lineOfFeatures.findValue("coordinates").get(0).toString();
-				String latitude = lineOfFeatures.findValue("coordinates").get(1).toString();
-
-				Localisation localisation = new Localisation(latitude, longitude);
+				Localisation localisation = new Localisation(latitude, longitude); 
 				localisationService.saveLocalisation(localisation);
 
 				// Generate a random ipAdress:
