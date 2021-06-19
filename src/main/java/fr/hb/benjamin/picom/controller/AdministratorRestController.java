@@ -1,7 +1,5 @@
 package fr.hb.benjamin.picom.controller;
 
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.List;
@@ -18,15 +16,20 @@ import org.springframework.web.bind.annotation.RestController;
 import fr.hb.benjamin.picom.business.Advert;
 import fr.hb.benjamin.picom.business.AdvertPNG;
 import fr.hb.benjamin.picom.business.Area;
+import fr.hb.benjamin.picom.business.Bill;
 import fr.hb.benjamin.picom.business.Pricing;
+import fr.hb.benjamin.picom.business.Role;
 import fr.hb.benjamin.picom.business.Stop;
 import fr.hb.benjamin.picom.business.TimeSlot;
+import fr.hb.benjamin.picom.business.User;
 import fr.hb.benjamin.picom.service.AdvertService;
 import fr.hb.benjamin.picom.service.AreaService;
+import fr.hb.benjamin.picom.service.BillService;
 import fr.hb.benjamin.picom.service.LocalisationService;
 import fr.hb.benjamin.picom.service.PricingService;
 import fr.hb.benjamin.picom.service.StopService;
 import fr.hb.benjamin.picom.service.TimeSlotService;
+import fr.hb.benjamin.picom.service.UserService;
 
 @RestController
 public class AdministratorRestController {
@@ -38,31 +41,56 @@ public class AdministratorRestController {
 	private TimeSlotService timeSlotService;
 	private PricingService pricingService;
 	private AdvertService advertService;
+	private BillService billService;
+	private UserService userService;
 	
 	
 	
 	// ------------------------------- Builder ----------------------------------
-	public AdministratorRestController(AreaService areaService, StopService stopService, LocalisationService localisationService, TimeSlotService timeSlotService, PricingService pricingService, AdvertService advertService) {
+	public AdministratorRestController(AreaService areaService, StopService stopService, LocalisationService localisationService, TimeSlotService timeSlotService, PricingService pricingService, AdvertService advertService, BillService billService, UserService userService) {
 		super();
 		this.areaService = areaService;
 		this.stopService = stopService;
 		this.localisationService = localisationService;
 		this.timeSlotService = timeSlotService;
 		this.pricingService = pricingService;
-		this.advertService=  advertService;
+		this.advertService =  advertService;
+		this.billService = billService;
+		this.userService = userService;
 	}
 	
+	
+	
+	// --------------------------------- Init -----------------------------------
 	@PostConstruct
 	private void init() {
-		// Initialisation of the timeSlots from 06h to 19h
+		initTimeSlots();
+		initUsers();
+	}
+	
+	private void initTimeSlots() {
+		// Initialisation of the timeSlots
 		if (timeSlotService.getTimeSlots().isEmpty()) {
 			for (int i=0; i<24; i++) {
 				timeSlotService.addTimeSlot(LocalTime.of(i, 0));
+				if (i>6 && i<=20) {
+					timeSlotService.modifyTimeSlot(Long.valueOf(i), true);
+				}
 			}
 		}
+		
 	}
 	
-	
+	private void initUsers() {
+		if (userService.findAll().isEmpty()) {
+			User user = new User();
+			user.setFistName("Benjamin");
+			user.setLastName("PETEL");
+			user.setEmail("benjamin.petel@mail.com");
+			user.setRole(Role.ADMINISTRATOR);
+			userService.save(user);
+		}
+	}
 	
 	// ---------------------------- DoGet - DoPost ------------------------------
 	
@@ -189,5 +217,31 @@ public class AdministratorRestController {
 	@DeleteMapping("/adverts/{idAdvert}")
 	public boolean removeAdvert(@PathVariable Long idAdvert) {
 		return advertService.removeAdvert(idAdvert);
+	}
+	
+	
+	
+	// ***********************Bill************************
+	@PostMapping("/bills/{idUser}")
+	public Bill addBill(@PathVariable Long idUser) {
+		return billService.addBill(idUser);
+	}
+	
+	@GetMapping("/bills/user/{idUser}")
+	public List<Bill> getBillsByUserId(@PathVariable Long idUser){
+		return billService.getBillsByUserId(idUser);
+	}
+	
+	
+	
+	// ***********************User************************
+	@PostMapping("/users/{firstName}/{lastName}/{email}/{password}/{phone}")
+	public User addUser(@PathVariable String firstName, @PathVariable String lastName, @PathVariable String email, @PathVariable String password, @PathVariable String phone) {
+		User user = new User();
+		user.setFistName(firstName);
+		user.setLastName(lastName);
+		user.setEmail(email);
+		user.setPassword(password);
+		return userService.save(user);
 	}
 }

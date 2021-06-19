@@ -15,6 +15,8 @@ import javax.validation.constraints.NotBlank;
 
 import org.hibernate.validator.constraints.Length;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 @Entity
 @NamedQuery(name="User.findAll", query="SELECT u FROM User u")
 public class User implements Serializable {
@@ -39,7 +41,10 @@ public class User implements Serializable {
 	private String fistName;
 
 	@OneToMany(mappedBy="user", fetch=FetchType.EAGER)
+	@JsonIgnore
 	private List<Bill> bills;
+	
+	// TODO add the phone number
 
 	private Role role;
 

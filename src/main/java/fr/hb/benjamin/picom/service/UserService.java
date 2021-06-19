@@ -1,5 +1,7 @@
 package fr.hb.benjamin.picom.service;
 
+import java.util.List;
+
 import javax.validation.Valid;
 
 import fr.hb.benjamin.picom.business.User;
@@ -22,4 +24,17 @@ public interface UserService {
 	@Valid
 	User save(@Valid User user);
 
+	/**
+	 * 
+	 * @return the list of all the user
+	 */
+	List<User> findAll();
+	
+	/**
+	 * 
+	 * @param idUser: the id of the user you want to get
+	 * @return: the user looked for if it exist, null if udUser is null or if the user doesn't exist
+	 */
+	User findById(Long idUser);
+	
 }

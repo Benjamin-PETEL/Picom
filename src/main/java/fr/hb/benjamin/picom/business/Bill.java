@@ -3,9 +3,6 @@ package fr.hb.benjamin.picom.business;
 import java.io.Serializable;
 import javax.persistence.*;
 
-import lombok.Getter;
-import lombok.Setter;
-
 import java.util.Date;
 import java.util.List;
 
@@ -19,25 +16,20 @@ public class Bill implements Serializable {
 
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
-	@Getter @Setter
 	private Long idBill;
 
 	@Temporal(TemporalType.DATE)
-	@Getter @Setter
 	private Date billDate;
 
 	@OneToMany(mappedBy="bill")
-	@Getter @Setter
 	private List<Purchase> purchases;
 
 	@ManyToOne
 	@JoinColumn(name="idUser")
-	@Getter @Setter
 	private User user;
 
 	@ManyToOne
 	@JoinColumn(name="idPaymentMean")
-	@Getter @Setter
 	private PaymentMean paymentMean;
 
 	
@@ -48,6 +40,49 @@ public class Bill implements Serializable {
 
 
 	
+	// ----------------------------- Set - Get ----------------------------------
+	public Long getIdBill() {
+		return idBill;
+	}
+
+	public void setIdBill(Long idBill) {
+		this.idBill = idBill;
+	}
+
+	public Date getBillDate() {
+		return billDate;
+	}
+
+	public void setBillDate(Date billDate) {
+		this.billDate = billDate;
+	}
+
+	public List<Purchase> getPurchases() {
+		return purchases;
+	}
+
+	public void setPurchases(List<Purchase> purchases) {
+		this.purchases = purchases;
+	}
+
+	public User getUser() {
+		return user;
+	}
+
+	public void setUser(User user) {
+		this.user = user;
+	}
+
+	public PaymentMean getPaymentMean() {
+		return paymentMean;
+	}
+
+	public void setPaymentMean(PaymentMean paymentMean) {
+		this.paymentMean = paymentMean;
+	}
+
+
+
 	// ----------------------------- hashCode -----------------------------------
 	@Override
 	public int hashCode() {
