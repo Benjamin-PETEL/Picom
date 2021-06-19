@@ -26,7 +26,8 @@ public class Stop implements Serializable {
 	private String ipAdress;
 
 	@NotNull(message = "Please provide a name to the stop")
-	private String name; 
+	// Two Stops can have the same name.
+	private String name;
 
 	@ManyToOne
 	@JoinColumn(name = "idLocalisation")
@@ -38,12 +39,14 @@ public class Stop implements Serializable {
 	@NotNull(message = "Please provide an area")
 	private Area area;
 
-	// ------------------------------- Builder ----------------------------------
+	// ------------------------------- Constructor
+	// ----------------------------------
 	public Stop() {
 	}
 
-	public Stop(String name, Localisation localisation, Area area) {
+	public Stop(String ipAdress, String name, Localisation localisation, Area area) {
 		super();
+		this.ipAdress = ipAdress;
 		this.name = name;
 		this.localisation = localisation;
 		this.area = area;

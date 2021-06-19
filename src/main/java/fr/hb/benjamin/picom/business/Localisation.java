@@ -21,7 +21,7 @@ public class Localisation implements Serializable {
 
 	
 	
-	// ------------------------------- Builder ----------------------------------
+	// ------------------------------- Constructor ----------------------------------
 	public Localisation() {
 	}
 

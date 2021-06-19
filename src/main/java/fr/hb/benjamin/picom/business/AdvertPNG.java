@@ -16,7 +16,7 @@ public class AdvertPNG extends Advert{
 
 	
 	
-	// ------------------------------- Builder ----------------------------------
+	// ------------------------------- Constructor ----------------------------------
 	public AdvertPNG() {
 		super();
 	}

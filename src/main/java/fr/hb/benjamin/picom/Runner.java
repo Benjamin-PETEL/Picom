@@ -1,6 +1,7 @@
 package fr.hb.benjamin.picom;
 
 import java.util.Iterator;
+import java.util.Random;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -18,18 +19,21 @@ import fr.hb.benjamin.picom.service.AreaService;
 import fr.hb.benjamin.picom.service.LocalisationService;
 import fr.hb.benjamin.picom.service.StopService;
 
+// CommandLineRunner is a simple spring boot interface with a run method. The run method
+// will be called automatically by the spring boot system after the initial boot.
 @Component
 public class Runner implements CommandLineRunner {
-	
+
 	@Autowired
 	private AreaService areaService;
-	
+
 	@Autowired
 	private StopService stopService;
 
 	@Autowired
 	private LocalisationService localisationService;
 
+	// https://www.baeldung.com/jackson-object-mapper-tutorial
 	@Autowired
 	private ObjectMapper objectMapper;
 
@@ -39,30 +43,39 @@ public class Runner implements CommandLineRunner {
 	@Override
 	public void run(String... args) throws Exception {
 
-		JsonNode jsonNode = objectMapper.readTree(res.getFile());
+		// For the moment, we add one area to the database which will contains all stops.
+		Area defaultArea = areaService.addArea(new String("area1"));
 
-		Iterator<JsonNode> features = jsonNode.get("features").elements();
+		if (stopService.getStops().isEmpty()) {
 
-		while (features.hasNext()) {
+			JsonNode jsonNode = objectMapper.readTree(res.getFile());
 
-			JsonNode lineOfFeatures = features.next();
+			// A Iterator to iterate through the elements of the property "features" in
+			// the Json file.
+			Iterator<JsonNode> features = jsonNode.get("features").elements();
 
-			String name = lineOfFeatures.findValue("nom").toString();
-			String longitude = lineOfFeatures.findValue("coordinates").get(0).toString();
-			String latitude = lineOfFeatures.findValue("coordinates").get(1).toString();
-			
-			Localisation localisation = new Localisation(latitude,longitude );
-			localisationService.saveLocalisation(localisation);
-			
-//			Area area = new Area();
-//			area.setName("defaultByName");
-			
-			Area area = areaService.addArea(new String("defaultByName"));
-			Stop stop = new Stop(name,localisation,area );
+			while (features.hasNext()) {
 
-			stopService.saveStop(stop);
-			
+				// A JSON can be parsed into a JsonNode object and used to retrieve data from a
+				// specific node.
+				JsonNode lineOfFeatures = features.next();
 
+				String name = lineOfFeatures.findValue("nom").toString();
+				String longitude = lineOfFeatures.findValue("coordinates").get(0).toString();
+				String latitude = lineOfFeatures.findValue("coordinates").get(1).toString();
+
+				Localisation localisation = new Localisation(latitude, longitude);
+				localisationService.saveLocalisation(localisation);
+
+				// Generate a random ipAdress:
+				Random r = new Random();
+				String ipAdress = r.nextInt(256) + "." + r.nextInt(256) + "." + r.nextInt(256) + "." + r.nextInt(256);
+
+				Stop stop = new Stop(ipAdress, name, localisation, defaultArea); 
+
+				stopService.saveStop(stop);
+
+			}
 		}
 
 	}

@@ -32,7 +32,7 @@ public class Pricing implements Serializable {
 	private float price;
 	
 	
-	// ------------------------------- Builder ----------------------------------
+	// ------------------------------- Constructor ----------------------------------
 	public Pricing() {
 	}
 
