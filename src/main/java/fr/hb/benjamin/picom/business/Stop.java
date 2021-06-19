@@ -13,40 +13,42 @@ import javax.persistence.NamedQuery;
 import javax.validation.constraints.NotNull;
 
 @Entity
-@NamedQuery(name="Stop.findAll", query="SELECT s FROM Stop s")
+@NamedQuery(name = "Stop.findAll", query = "SELECT s FROM Stop s")
 public class Stop implements Serializable {
-	
+
 	// ----------------------------- Attributes ---------------------------------
 	private static final long serialVersionUID = 1L;
 
 	@Id
-	@GeneratedValue(strategy=GenerationType.IDENTITY)
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long idStop;
 
 	private String ipAdress;
 
-	@NotNull(message="Please provide a name to the stop")
-	@Column(unique = true)
-	private String name;
+	@NotNull(message = "Please provide a name to the stop")
+	private String name; 
 
 	@ManyToOne
-	@JoinColumn(name="idLocalisation")
-	@NotNull(message="Please provide a localisation")
+	@JoinColumn(name = "idLocalisation")
+	@NotNull(message = "Please provide a localisation")
 	private Localisation localisation;
 
 	@ManyToOne
-	@JoinColumn(name="idArea")
-	@NotNull(message="Please provide an area")
+	@JoinColumn(name = "idArea")
+	@NotNull(message = "Please provide an area")
 	private Area area;
 
-	
-	
 	// ------------------------------- Builder ----------------------------------
 	public Stop() {
 	}
 
+	public Stop(String name, Localisation localisation, Area area) {
+		super();
+		this.name = name;
+		this.localisation = localisation;
+		this.area = area;
+	}
 
-	
 	// ----------------------------- Set - Get ----------------------------------
 	public Long getIdStop() {
 		return idStop;
@@ -88,8 +90,6 @@ public class Stop implements Serializable {
 		this.area = area;
 	}
 
-
-	
 	// ----------------------------- hashCode -----------------------------------
 	@Override
 	public int hashCode() {
@@ -102,8 +102,6 @@ public class Stop implements Serializable {
 		result = prime * result + ((name == null) ? 0 : name.hashCode());
 		return result;
 	}
-
-
 
 	// ------------------------------ equals ------------------------------------
 	@Override
@@ -143,8 +141,6 @@ public class Stop implements Serializable {
 		return true;
 	}
 
-	
-	
 	// ----------------------------- toString -----------------------------------
 	@Override
 	public String toString() {
