@@ -57,7 +57,7 @@ public class Runner implements CommandLineRunner {
 			Iterator<JsonNode> features = jsonNode.get("features").elements();
 
 			while (features.hasNext()) {
-
+ 
 				JsonNode lineOfFeatures = features.next();
   
 				String name = lineOfFeatures.findValue("nom").asText();
