@@ -7,9 +7,8 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 public class PicomApplication {
 
 	public static void main(String[] args) {
+
 		SpringApplication.run(PicomApplication.class, args);
 	}
-	
-	// TODO: data initialisation (TimeSlot)
 
 }

@@ -14,13 +14,13 @@ import javax.validation.constraints.NotBlank;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
-
+ 
 @Entity
 @NamedQuery(name="Area.findAll", query="SELECT a FROM Area a")
 public class Area implements Serializable {
 	
 	// ----------------------------- Attributes ---------------------------------
-	private static final long serialVersionUID = 1L;
+	private static final long serialVersionUID = 1L; 
 
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
@@ -29,10 +29,10 @@ public class Area implements Serializable {
 	private String contour;
 
 	@NotBlank(message="Please give a name to the area")
-	@Column(unique = true)
+//	@Column(unique = true)
 	private String name;
 
-	@OneToMany(mappedBy="area")
+	@OneToMany(mappedBy="area") 
 	@JsonIgnore
 	private List<Stop> stops;
 	
@@ -42,7 +42,7 @@ public class Area implements Serializable {
 
 	
 	
-	// ------------------------------- Builder ----------------------------------
+	// ------------------------------- Constructor ----------------------------------
 	public Area() {
 	}
 

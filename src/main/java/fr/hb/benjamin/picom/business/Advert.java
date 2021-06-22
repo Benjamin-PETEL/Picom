@@ -43,7 +43,7 @@ public abstract class Advert implements Serializable {
 	
 	
 	
-	// ------------------------------- Builder ----------------------------------
+	// ------------------------------- Constructor ----------------------------------
 	public Advert() {
 	}
 

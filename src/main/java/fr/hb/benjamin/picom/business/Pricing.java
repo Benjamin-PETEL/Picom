@@ -16,7 +16,7 @@ import javax.validation.constraints.Min;
 public class Pricing implements Serializable {
 	
 	// ----------------------------- Attributes ---------------------------------
-	private static final long serialVersionUID = 1L;
+	private static final long serialVersionUID = 1L;  
 	
 	@Id
 	@ManyToOne
@@ -32,7 +32,7 @@ public class Pricing implements Serializable {
 	private float price;
 	
 	
-	// ------------------------------- Builder ----------------------------------
+	// ------------------------------- Constructor ----------------------------------
 	public Pricing() {
 	}
 

@@ -35,7 +35,7 @@ public class Diffusion implements Serializable {
 
 	
 	
-	// ------------------------------- Builder ----------------------------------
+	// ------------------------------- Constructor ----------------------------------
 	public Diffusion() {
 	}
 

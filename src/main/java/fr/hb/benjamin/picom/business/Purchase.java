@@ -43,7 +43,7 @@ public class Purchase implements Serializable {
 
 	
 	
-	// ------------------------------- Builder ----------------------------------
+	// ------------------------------- Constructor ----------------------------------
 	public Purchase() {
 	}
 

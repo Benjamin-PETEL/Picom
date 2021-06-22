@@ -21,12 +21,12 @@ public class Localisation implements Serializable {
 
 	
 	
-	// ------------------------------- Builder ----------------------------------
+	// ------------------------------- Constructor ----------------------------------
 	public Localisation() {
 	}
 
-	
-	
+
+
 	// ----------------------------- Set - Get ----------------------------------
 	public Long getIdLocalisation() {
 		return idLocalisation;

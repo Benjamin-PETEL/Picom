@@ -59,7 +59,7 @@ public class PaymentMean implements Serializable {
 
 	
 	
-	// ------------------------------- Builder ----------------------------------
+	// ------------------------------- Constructor ----------------------------------
 	public PaymentMean() {
 	}
 

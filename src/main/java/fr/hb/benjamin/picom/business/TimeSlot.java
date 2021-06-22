@@ -34,7 +34,7 @@ public class TimeSlot implements Serializable {
 	
 	
 	
-	// ------------------------------- Builder ----------------------------------
+	// ------------------------------- Constructor ----------------------------------
 	public TimeSlot() {
 	}
 
