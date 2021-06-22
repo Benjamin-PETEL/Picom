@@ -44,7 +44,7 @@ public class User implements Serializable {
 	@JsonIgnore
 	private List<Bill> bills;
 	
-	// TODO add the phone number
+	private String phoneNumber;
 
 	private Role role;
 
@@ -112,9 +112,17 @@ public class User implements Serializable {
 	public void setRole(Role role) {
 		this.role = role;
 	}
-
-
 	
+	public String getPhoneNumber() {
+		return phoneNumber;
+	}
+
+	public void setPhoneNumber(String phoneNumber) {
+		this.phoneNumber = phoneNumber;
+	}
+
+
+
 	// ----------------------------- hashCode -----------------------------------
 	@Override
 	public int hashCode() {
@@ -126,6 +134,7 @@ public class User implements Serializable {
 		result = prime * result + ((idUser == null) ? 0 : idUser.hashCode());
 		result = prime * result + ((lastName == null) ? 0 : lastName.hashCode());
 		result = prime * result + ((password == null) ? 0 : password.hashCode());
+		result = prime * result + ((phoneNumber == null) ? 0 : phoneNumber.hashCode());
 		result = prime * result + ((role == null) ? 0 : role.hashCode());
 		return result;
 	}
@@ -172,10 +181,12 @@ public class User implements Serializable {
 				return false;
 		} else if (!password.equals(other.password))
 			return false;
-		if (role == null) {
-			if (other.role != null)
+		if (phoneNumber == null) {
+			if (other.phoneNumber != null)
 				return false;
-		} else if (!role.equals(other.role))
+		} else if (!phoneNumber.equals(other.phoneNumber))
+			return false;
+		if (role != other.role)
 			return false;
 		return true;
 	}
@@ -186,7 +197,8 @@ public class User implements Serializable {
 	@Override
 	public String toString() {
 		return "User [idUser=" + idUser + ", email=" + email + ", password=" + password + ", lastName=" + lastName
-				+ ", fistName=" + fistName + ", bills=" + bills + ", role=" + role + "]";
+				+ ", fistName=" + fistName + ", bills=" + bills + ", phoneNumber=" + phoneNumber + ", role=" + role
+				+ "]";
 	}
 	
 }
