@@ -12,8 +12,13 @@ import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.validation.constraints.NotBlank;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.vividsolutions.jts.geom.MultiPolygon;
+import com.vividsolutions.jts.geom.Point;
+import com.vividsolutions.jts.geom.Polygon;
+import com.vividsolutions.jts.geom.Geometry;
  
 @Entity
 @NamedQuery(name="Area.findAll", query="SELECT a FROM Area a")
@@ -22,11 +27,12 @@ public class Area implements Serializable {
 	// ----------------------------- Attributes ---------------------------------
 	private static final long serialVersionUID = 1L; 
 
-	@Id
+	@Id 
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private Long idArea;
-
-	private String contour;
+	
+	@Column
+	private Polygon contour;
 
 	@NotBlank(message="Please give a name to the area")
 //	@Column(unique = true)
@@ -52,18 +58,18 @@ public class Area implements Serializable {
 	public Long getIdArea() {
 		return idArea;
 	}
-	
+	 
 	public void setIdArea(Long idArea) {
 		this.idArea = idArea;
 	}
 	
-	public String getContour() {
-		return contour;
-	}
-	
-	public void setContour(String contour) {
-		this.contour = contour;
-	}
+//	public String getContour() {
+//		return contour;
+//	} 
+//	
+//	public void setContour(String contour) {
+//		this.contour = contour;
+//	}
 	
 	public String getName() {
 		return name;
@@ -73,6 +79,18 @@ public class Area implements Serializable {
 		this.name = name;
 	}
 	
+	public Geometry getContour() {
+		return contour;
+	}
+
+
+
+	public void setContour(Geometry contour) {
+		this.contour = contour;
+	}
+
+
+
 	public List<Stop> getStops() {
 		return stops;
 	}
