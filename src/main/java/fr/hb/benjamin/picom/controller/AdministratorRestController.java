@@ -242,6 +242,31 @@ public class AdministratorRestController {
 		user.setLastName(lastName);
 		user.setEmail(email);
 		user.setPassword(password);
+		user.setPhoneNumber(phone);
 		return userService.save(user);
+	}
+	
+	@PostMapping("/users/{email}/{password}")
+	public User getUserByEmailAndPassword(@PathVariable String email, @PathVariable String password) {
+		return userService.findByEmailAndPassword(email, password);
+	}
+	
+	@PutMapping("/users/{idUser}/{firstName}/{lastName}/{email}/{password}/{phone}")
+	public User modifyUserById(@PathVariable Long idUser, @PathVariable String firstName, @PathVariable String lastName, @PathVariable String email, @PathVariable String password, @PathVariable String phone) {
+		User user = userService.findById(idUser);
+		if (user==null) {
+			return null;
+		}
+		user.setFistName(firstName);
+		user.setLastName(lastName);
+		user.setEmail(email);
+		user.setPassword(password);
+		user.setPhoneNumber(phone);
+		return userService.save(user);
+	}
+	
+	@GetMapping("/users")
+	public List<User> getUsers(){
+		return userService.findAll();
 	}
 }
