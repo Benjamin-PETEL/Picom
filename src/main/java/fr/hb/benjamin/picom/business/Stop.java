@@ -44,14 +44,6 @@ public class Stop implements Serializable {
 	public Stop() {
 	}
 
-	public Stop(String ipAdress, String name, Localisation localisation, Area area) {
-		super();
-		this.ipAdress = ipAdress;
-		this.name = name;
-		this.localisation = localisation;
-		this.area = area;
-	}
-
 	// ----------------------------- Set - Get ----------------------------------
 	public Long getIdStop() {
 		return idStop;

@@ -64,14 +64,20 @@ public class Runner implements CommandLineRunner {
 				String longitude = lineOfFeatures.findValue("coordinates").get(0).asText();
 				String latitude = lineOfFeatures.findValue("coordinates").get(1).asText();
 
-				Localisation localisation = new Localisation(latitude, longitude); 
+				Localisation localisation = new Localisation(); 
+				localisation.setLatitude(latitude);
+				localisation.setLongitude(longitude);
 				localisationService.saveLocalisation(localisation);
 
 				// Generate a random ipAdress:
 				Random r = new Random();
 				String ipAdress = r.nextInt(256) + "." + r.nextInt(256) + "." + r.nextInt(256) + "." + r.nextInt(256);
 
-				Stop stop = new Stop(ipAdress, name, localisation, defaultArea); 
+				Stop stop = new Stop(); 
+				stop.setIpAdress(ipAdress);
+				stop.setName(name);
+				stop.setLocalisation(localisation);
+				stop.setArea(defaultArea);
 
 				stopService.saveStop(stop);
 

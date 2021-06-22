@@ -25,14 +25,6 @@ public class Localisation implements Serializable {
 	public Localisation() {
 	}
 
-	
-	
-	public Localisation(String latitude, String longitude) {
-		super();
-		this.latitude = latitude;
-		this.longitude = longitude;
-	}
-
 
 
 	// ----------------------------- Set - Get ----------------------------------
