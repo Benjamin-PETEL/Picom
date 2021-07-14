@@ -95,10 +95,10 @@ public class AdministratorRestController {
 	// ---------------------------- DoGet - DoPost ------------------------------
 	
 	// **********************Areas************************
-	@PostMapping("/areas/{name}")
-	public Area addArea(@PathVariable String name) {
-		return areaService.addArea(name);
-	}
+//	@PostMapping("/areas/{name}")
+//	public Area addArea(@PathVariable String name) {
+//		return areaService.addArea(name);
+//	}
 	
 	@GetMapping("/areas")
 	public List<Area> getAreas(){

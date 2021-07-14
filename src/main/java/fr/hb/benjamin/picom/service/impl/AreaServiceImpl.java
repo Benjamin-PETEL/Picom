@@ -2,6 +2,7 @@ package fr.hb.benjamin.picom.service.impl;
 
 import java.util.List;
 
+import org.geojson.Polygon;
 import org.springframework.stereotype.Service;
 
 import fr.hb.benjamin.picom.business.Area;
@@ -44,9 +45,10 @@ public class AreaServiceImpl implements AreaService {
 	}
 	
 	@Override
-	public Area addArea(String name) {
+	public Area addArea(String name, Polygon contour) {
 		Area area = new Area();
 		area.setName(name);
+		area.setContour(contour);
 		return areaDao.save(area);
 	}
 

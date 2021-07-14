@@ -12,93 +12,77 @@ import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.validation.constraints.NotBlank;
 
-
+//import org.locationtech.jts.geom.Point
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.vividsolutions.jts.geom.MultiPolygon;
-import com.vividsolutions.jts.geom.Point;
-import com.vividsolutions.jts.geom.Polygon;
-import com.vividsolutions.jts.geom.Geometry;
- 
-@Entity
-@NamedQuery(name="Area.findAll", query="SELECT a FROM Area a")
-public class Area implements Serializable {
-	
-	// ----------------------------- Attributes ---------------------------------
-	private static final long serialVersionUID = 1L; 
 
-	@Id 
-	@GeneratedValue(strategy=GenerationType.IDENTITY)
+import org.geojson.Polygon;
+import org.hibernate.annotations.Type;
+
+//import org.springframework.data.geo.Polygon;
+
+@Entity
+@NamedQuery(name = "Area.findAll", query = "SELECT a FROM Area a")
+public class Area implements Serializable {
+
+	// ----------------------------- Attributes ---------------------------------
+	private static final long serialVersionUID = 1L;
+
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long idArea;
+ 
 	
-	@Column
+//	@Type(type="org.hibernate.spatial.GeometryType")
+	@Column(columnDefinition = "Polygon")
 	private Polygon contour;
 
-	@NotBlank(message="Please give a name to the area")
+//	@NotBlank(message="Please give a name to the area")
 //	@Column(unique = true)
 	private String name;
 
-	@OneToMany(mappedBy="area") 
+	@OneToMany(mappedBy = "area")
 	@JsonIgnore
 	private List<Stop> stops;
-	
+
 	@JsonIgnore
 	@OneToMany(mappedBy = "area")
 	private List<Pricing> pricing;
 
-	
-	
-	// ------------------------------- Constructor ----------------------------------
+	// ------------------------------- Constructor
+	// ----------------------------------
 	public Area() {
 	}
 
-	
-	
 	// ----------------------------- Set - Get ----------------------------------
 	public Long getIdArea() {
 		return idArea;
 	}
-	 
+
 	public void setIdArea(Long idArea) {
 		this.idArea = idArea;
 	}
-	
-//	public String getContour() {
-//		return contour;
-//	} 
-//	
-//	public void setContour(String contour) {
-//		this.contour = contour;
-//	}
-	
+
 	public String getName() {
 		return name;
 	}
-	
-	public void setName(String name) {
-		this.name = name;
-	}
-	
-	public Geometry getContour() {
-		return contour;
-	}
 
-
-
-	public void setContour(Geometry contour) {
+	public void setContour(Polygon contour) {
 		this.contour = contour;
 	}
 
-
+	public void setName(String name) {
+		this.name = name;
+	}
 
 	public List<Stop> getStops() {
 		return stops;
 	}
-	
+
 	public void setStops(List<Stop> stops) {
 		this.stops = stops;
 	}
-	
+
 	public List<Pricing> getPricing() {
 		return pricing;
 	}
@@ -107,8 +91,6 @@ public class Area implements Serializable {
 		this.pricing = pricing;
 	}
 
-
-	
 	// ----------------------------- hashCode -----------------------------------
 	@Override
 	public int hashCode() {
@@ -122,8 +104,6 @@ public class Area implements Serializable {
 		return result;
 	}
 
-
-	
 	// ------------------------------ equals ------------------------------------
 	@Override
 	public boolean equals(Object obj) {
@@ -162,8 +142,6 @@ public class Area implements Serializable {
 		return true;
 	}
 
-
-	
 	// ----------------------------- toString -----------------------------------
 	@Override
 	public String toString() {
