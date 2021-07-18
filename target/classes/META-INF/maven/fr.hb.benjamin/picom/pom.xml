@@ -17,30 +17,32 @@
 	<properties>
 		<java.version>16</java.version>
 	</properties>
+
 	<dependencies>
-		<!-- https://mvnrepository.com/artifact/com.fasterxml.jackson.core/jackson-databind -->
-		<!-- https://mvnrepository.com/artifact/com.vividsolutions/jts -->
+
 		<dependency>
 			<groupId>com.vividsolutions</groupId>
 			<artifactId>jts</artifactId>
 			<version>1.13</version>
 		</dependency>
+
 		<dependency>
 			<groupId>de.grundid.opendatalab</groupId>
 			<artifactId>geojson-jackson</artifactId>
 			<version>1.14</version>
 		</dependency>
-		<!-- https://mvnrepository.com/artifact/org.n52.jackson/jackson-datatype-jts -->
+
 		<dependency>
-			<groupId>org.n52.jackson</groupId>
-			<artifactId>jackson-datatype-jts</artifactId>
-			<version>1.2.8</version>
+			<groupId>org.hibernate</groupId>
+			<artifactId>hibernate-spatial</artifactId>
 		</dependency>
-		<!-- https://mvnrepository.com/artifact/org.hibernate/hibernate-spatial --><!-- 
-	<dependency>
-		<groupId>org.hibernate</groupId>
-		<artifactId>hibernate-spatial</artifactId>
-	</dependency> -->
+
+		<dependency>
+			<groupId>junit</groupId>
+			<artifactId>junit</artifactId>
+			<version>4.13.1</version>
+			<scope>test</scope>
+		</dependency>
 
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
@@ -66,11 +68,7 @@
 			<artifactId>mysql-connector-java</artifactId>
 			<scope>runtime</scope>
 		</dependency>
-		<!-- <dependency> -->
-		<!-- <groupId>org.mariadb.jdbc</groupId> -->
-		<!-- <artifactId>mariadb-java-client</artifactId> -->
-		<!-- <scope>runtime</scope> -->
-		<!-- </dependency> -->
+
 		<dependency>
 			<groupId>org.projectlombok</groupId>
 			<artifactId>lombok</artifactId>
@@ -90,7 +88,6 @@
 			<groupId>javax.servlet</groupId>
 			<artifactId>jstl</artifactId>
 		</dependency>
-
 
 		<dependency>
 			<groupId>org.apache.tomcat</groupId>

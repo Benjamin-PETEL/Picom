@@ -2,8 +2,10 @@ package fr.hb.benjamin.picom.service.impl;
 
 import java.util.List;
 
-import org.geojson.Polygon;
+
 import org.springframework.stereotype.Service;
+
+import com.vividsolutions.jts.geom.Polygon;
 
 import fr.hb.benjamin.picom.business.Area;
 import fr.hb.benjamin.picom.dao.AreaDao;
@@ -52,6 +54,15 @@ public class AreaServiceImpl implements AreaService {
 		return areaDao.save(area);
 	}
 
+	
+	@Override
+	public Area addArea(String name) {
+		Area area = new Area();
+		area.setName(name);
+	
+		return areaDao.save(area);
+	}
+	
 	@Override
 	public boolean deleteArea(Long id) {
 		Area area = areaDao.findById(id).get();

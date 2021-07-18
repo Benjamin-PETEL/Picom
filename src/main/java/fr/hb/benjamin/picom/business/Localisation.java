@@ -15,9 +15,9 @@ public class Localisation implements Serializable {
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private Long idLocalisation;
 
-	private String latitude;
+	private Double latitude;
 
-	private String longitude;
+	private Double longitude;
 
 	
 	
@@ -36,24 +36,32 @@ public class Localisation implements Serializable {
 		this.idLocalisation = idLocalisation;
 	}
 
-	public String getLatitude() {
+	
+	
+	public Double getLatitude() {
 		return latitude;
 	}
 
-	public void setLatitude(String latitude) {
+
+
+	public void setLatitude(Double latitude) {
 		this.latitude = latitude;
 	}
 
-	public String getLongitude() {
+
+
+	public Double getLongitude() {
 		return longitude;
 	}
 
-	public void setLongitude(String longitude) {
+
+
+	public void setLongitude(Double longitude) {
 		this.longitude = longitude;
 	}
 
-	
-	
+
+
 	// ----------------------------- hashCode -----------------------------------
 	@Override
 	public int hashCode() {

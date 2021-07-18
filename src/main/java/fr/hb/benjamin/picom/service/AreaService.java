@@ -26,7 +26,9 @@ public interface AreaService {
 	 * @param name: the name of the area to add
 	 * @return the added area
 	 */
-	Area addArea(String name,  Polygon contour);
+	Area addArea(String name,  com.vividsolutions.jts.geom.Polygon poly);
+	
+	Area addArea(String name);
 	
 	/**
 	 * 

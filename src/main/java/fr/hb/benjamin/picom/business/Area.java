@@ -15,8 +15,8 @@ import javax.validation.constraints.NotBlank;
 //import org.locationtech.jts.geom.Point
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.vividsolutions.jts.geom.Polygon;
 
-import org.geojson.Polygon;
 import org.hibernate.annotations.Type;
 
 //import org.springframework.data.geo.Polygon;
@@ -27,7 +27,7 @@ public class Area implements Serializable {
 
 	// ----------------------------- Attributes ---------------------------------
 	private static final long serialVersionUID = 1L;
-
+ 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long idArea;
