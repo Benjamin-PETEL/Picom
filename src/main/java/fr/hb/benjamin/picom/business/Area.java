@@ -15,9 +15,9 @@ import javax.validation.constraints.NotBlank;
 //import org.locationtech.jts.geom.Point
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.vividsolutions.jts.geom.Polygon;
-
-import org.hibernate.annotations.Type;
+//import com.vividsolutions.jts.geom.Polygon;
+//
+//import org.hibernate.annotations.Type;
 
 //import org.springframework.data.geo.Polygon;
 
@@ -34,11 +34,11 @@ public class Area implements Serializable {
  
 	
 //	@Type(type="org.hibernate.spatial.GeometryType")
-	@Column(columnDefinition = "Polygon")
-	private Polygon contour;
+//	@Column(columnDefinition = "Polygon")
+//	private Polygon contour;
 
-//	@NotBlank(message="Please give a name to the area")
-//	@Column(unique = true)
+	@NotBlank(message="Please give a name to the area")
+	@Column(unique = true)
 	private String name;
 
 	@OneToMany(mappedBy = "area")
@@ -49,8 +49,8 @@ public class Area implements Serializable {
 	@OneToMany(mappedBy = "area")
 	private List<Pricing> pricing;
 
-	// ------------------------------- Constructor
-	// ----------------------------------
+	// ------------------------------- Constructor  ----------------------------------
+	
 	public Area() {
 	}
 
@@ -67,9 +67,6 @@ public class Area implements Serializable {
 		return name;
 	}
 
-	public void setContour(Polygon contour) {
-		this.contour = contour;
-	}
 
 	public void setName(String name) {
 		this.name = name;
@@ -96,7 +93,6 @@ public class Area implements Serializable {
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
-		result = prime * result + ((contour == null) ? 0 : contour.hashCode());
 		result = prime * result + ((idArea == null) ? 0 : idArea.hashCode());
 		result = prime * result + ((name == null) ? 0 : name.hashCode());
 		result = prime * result + ((pricing == null) ? 0 : pricing.hashCode());
@@ -114,11 +110,6 @@ public class Area implements Serializable {
 		if (getClass() != obj.getClass())
 			return false;
 		Area other = (Area) obj;
-		if (contour == null) {
-			if (other.contour != null)
-				return false;
-		} else if (!contour.equals(other.contour))
-			return false;
 		if (idArea == null) {
 			if (other.idArea != null)
 				return false;
@@ -145,7 +136,7 @@ public class Area implements Serializable {
 	// ----------------------------- toString -----------------------------------
 	@Override
 	public String toString() {
-		return "Area [idArea=" + idArea + ", contour=" + contour + ", name=" + name + ", stops=" + stops + ", pricing="
+		return "Area [idArea=" + idArea + ", name=" + name + ", stops=" + stops + ", pricing="
 				+ pricing + "]";
 	}
 

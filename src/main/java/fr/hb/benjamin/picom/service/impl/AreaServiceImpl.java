@@ -50,7 +50,7 @@ public class AreaServiceImpl implements AreaService {
 	public Area addArea(String name, Polygon contour) {
 		Area area = new Area();
 		area.setName(name);
-		area.setContour(contour);
+//		area.setContour(contour);
 		return areaDao.save(area);
 	}
 
