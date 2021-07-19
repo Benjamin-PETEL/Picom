@@ -2,6 +2,8 @@ package fr.hb.benjamin.picom.service;
 
 import java.util.List;
 
+import org.geojson.Polygon;
+
 import fr.hb.benjamin.picom.business.Area;
 
 public interface AreaService {
@@ -24,6 +26,8 @@ public interface AreaService {
 	 * @param name: the name of the area to add
 	 * @return the added area
 	 */
+	Area addArea(String name,  com.vividsolutions.jts.geom.Polygon poly);
+	
 	Area addArea(String name);
 	
 	/**
