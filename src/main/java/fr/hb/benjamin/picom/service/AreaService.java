@@ -2,8 +2,6 @@ package fr.hb.benjamin.picom.service;
 
 import java.util.List;
 
-import org.geojson.Polygon;
-
 import fr.hb.benjamin.picom.business.Area;
 
 public interface AreaService {

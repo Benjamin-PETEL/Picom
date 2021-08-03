@@ -2,6 +2,7 @@ package fr.hb.benjamin.picom.controller;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.annotation.PostConstruct;
@@ -20,6 +21,7 @@ import fr.hb.benjamin.picom.business.Area;
 import fr.hb.benjamin.picom.business.Bill;
 import fr.hb.benjamin.picom.business.Pricing;
 import fr.hb.benjamin.picom.business.Role;
+import fr.hb.benjamin.picom.business.RoleEnum;
 import fr.hb.benjamin.picom.business.Stop;
 import fr.hb.benjamin.picom.business.TimeSlot;
 import fr.hb.benjamin.picom.business.User;
@@ -28,6 +30,7 @@ import fr.hb.benjamin.picom.service.AreaService;
 import fr.hb.benjamin.picom.service.BillService;
 import fr.hb.benjamin.picom.service.LocalisationService;
 import fr.hb.benjamin.picom.service.PricingService;
+import fr.hb.benjamin.picom.service.RoleService;
 import fr.hb.benjamin.picom.service.StopService;
 import fr.hb.benjamin.picom.service.TimeSlotService;
 import fr.hb.benjamin.picom.service.UserService;
@@ -47,11 +50,11 @@ public class AdministratorRestController {
 	private AdvertService advertService;
 	private BillService billService;
 	private UserService userService;
-	
+	private RoleService roleService;
 	
 	
 	// ------------------------------- Builder ----------------------------------
-	public AdministratorRestController(AreaService areaService, StopService stopService, LocalisationService localisationService, TimeSlotService timeSlotService, PricingService pricingService, AdvertService advertService, BillService billService, UserService userService) {
+	public AdministratorRestController(AreaService areaService, StopService stopService, LocalisationService localisationService, TimeSlotService timeSlotService, PricingService pricingService, AdvertService advertService, BillService billService, UserService userService, RoleService roleService) {
 		super();
 		this.areaService = areaService;
 		this.stopService = stopService;
@@ -61,6 +64,7 @@ public class AdministratorRestController {
 		this.advertService =  advertService;
 		this.billService = billService;
 		this.userService = userService;
+		this.roleService = roleService;
 	}
 	
 	
@@ -69,6 +73,7 @@ public class AdministratorRestController {
 	@PostConstruct
 	private void init() {
 		initTimeSlots();
+		initRoles();
 		initUsers();
 	}
 	
@@ -81,18 +86,33 @@ public class AdministratorRestController {
 					timeSlotService.modifyTimeSlot(Long.valueOf(i), true);
 				}
 			}
+		}	
+	}
+	
+	private void initRoles() {
+		for (RoleEnum roleEnum : RoleEnum.values()) {
+			Role role = new Role();
+			role.setIdRole(roleEnum.getId());
+			role.setName(roleEnum.getName());
+			roleService.save(role);
 		}
-		
 	}
 	
 	private void initUsers() {
+		System.out.println("initUsers:");
 		if (userService.findAll().isEmpty()) {
 			User user = new User();
+			List<Role> roles = new ArrayList<>();
+			Role role = roleService.findById(RoleEnum.ROLE_ADMIN.getId());
+			roles.add(role);
 			user.setFistName("Benjamin");
 			user.setLastName("PETEL");
 			user.setEmail("benjamin.petel@mail.com");
-			user.setRole(Role.ADMINISTRATOR);
+			user.setRoles(roles);
+			System.out.println(roles);
+			System.out.println(user);
 			userService.save(user);
+			System.out.println("End of initusers");
 		}
 	}
 	
