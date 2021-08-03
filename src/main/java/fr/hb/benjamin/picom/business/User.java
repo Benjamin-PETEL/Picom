@@ -3,11 +3,15 @@ package fr.hb.benjamin.picom.business;
 import java.io.Serializable;
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.validation.constraints.Email;
@@ -43,10 +47,11 @@ public class User implements Serializable {
 	@OneToMany(mappedBy="user", fetch=FetchType.EAGER)
 	@JsonIgnore
 	private List<Bill> bills;
-	
-	private String phoneNumber;
 
-	private Role role;
+	@ManyToMany//(cascade=CascadeType.PERSIST)
+	private List<Role> roles;
+
+	private String phoneNumber;
 
 	
 	
@@ -105,14 +110,14 @@ public class User implements Serializable {
 		this.bills = bills;
 	}
 
-	public Role getRole() {
-		return role;
+	public List<Role> getRoles() {
+		return roles;
 	}
 
-	public void setRole(Role role) {
-		this.role = role;
+	public void setRoles(List<Role> roles) {
+		this.roles = roles;
 	}
-	
+
 	public String getPhoneNumber() {
 		return phoneNumber;
 	}
@@ -123,7 +128,6 @@ public class User implements Serializable {
 
 
 
-	// ----------------------------- hashCode -----------------------------------
 	@Override
 	public int hashCode() {
 		final int prime = 31;
@@ -135,13 +139,12 @@ public class User implements Serializable {
 		result = prime * result + ((lastName == null) ? 0 : lastName.hashCode());
 		result = prime * result + ((password == null) ? 0 : password.hashCode());
 		result = prime * result + ((phoneNumber == null) ? 0 : phoneNumber.hashCode());
-		result = prime * result + ((role == null) ? 0 : role.hashCode());
+		result = prime * result + ((roles == null) ? 0 : roles.hashCode());
 		return result;
 	}
 
 
 	
-	// ------------------------------ equals ------------------------------------
 	@Override
 	public boolean equals(Object obj) {
 		if (this == obj)
@@ -186,19 +189,21 @@ public class User implements Serializable {
 				return false;
 		} else if (!phoneNumber.equals(other.phoneNumber))
 			return false;
-		if (role != other.role)
+		if (roles == null) {
+			if (other.roles != null)
+				return false;
+		} else if (!roles.equals(other.roles))
 			return false;
 		return true;
 	}
 
+
 	
-	
-	// ----------------------------- toString -----------------------------------
 	@Override
 	public String toString() {
 		return "User [idUser=" + idUser + ", email=" + email + ", password=" + password + ", lastName=" + lastName
-				+ ", fistName=" + fistName + ", bills=" + bills + ", phoneNumber=" + phoneNumber + ", role=" + role
+				+ ", fistName=" + fistName + ", bills=" + bills + ", roles=" + roles + ", phoneNumber=" + phoneNumber
 				+ "]";
 	}
-	
+
 }
