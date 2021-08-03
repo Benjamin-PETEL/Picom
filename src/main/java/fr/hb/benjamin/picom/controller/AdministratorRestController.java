@@ -6,6 +6,7 @@ import java.util.List;
 
 import javax.annotation.PostConstruct;
 
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -31,7 +32,10 @@ import fr.hb.benjamin.picom.service.StopService;
 import fr.hb.benjamin.picom.service.TimeSlotService;
 import fr.hb.benjamin.picom.service.UserService;
 
+
 @RestController
+//@CrossOrigin(origins = "", allowedHeaders = "")
+@CrossOrigin(origins = "http://localhost:4200")
 public class AdministratorRestController {
 
 	// ----------------------------- Attributes ---------------------------------
@@ -99,6 +103,14 @@ public class AdministratorRestController {
 //	public Area addArea(@PathVariable String name) {
 //		return areaService.addArea(name);
 //	}
+	
+	
+//    @PostMapping(value = "/users")
+//    ResponseEntity<User> saveCandidat(@Valid @RequestBody User user) {
+//        this.userService.ajouterUser(user);
+//        return new ResponseEntity<User>(user, HttpStatus.CREATED);
+//    }
+//	
 	
 	@GetMapping("/areas")
 	public List<Area> getAreas(){
