@@ -64,7 +64,7 @@ public class Runner implements CommandLineRunner {
 		ObjectMapper om = new ObjectMapper();
 		GeometryFactory gf = new GeometryFactory();
 
-		if (stopService.getStops().isEmpty()) {
+		if (areaService.getAreas().isEmpty()) {
 
 			Map<String, Object> areaMap = om.readValue(res2.getFile(), new TypeReference<Map<String, Object>>() {
 			});
